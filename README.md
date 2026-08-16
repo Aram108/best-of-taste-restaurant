@@ -68,7 +68,7 @@ A ultra-modern, high-end single-page & multi-screen web application designed for
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/YourUsername/best-of-taste-restaurant.git
+   git clone https://github.com/Aram108/best-of-taste-restaurant.git
    cd best-of-taste-restaurant
    ```
 
@@ -79,11 +79,13 @@ A ultra-modern, high-end single-page & multi-screen web application designed for
 
 ## 👨‍💻 Developer & Contact Info
 
-- **Developer**: [Araam.dev](https://araam.dev)
+- **Developer**: [Araam.dev](https://araam-dev.vercel.app)
+- **GitHub**: [Aram108](https://github.com/Aram108)
 - **Location**: Duhok, Kurdistan
 - **Phone / WhatsApp**: [+964 750 843 9986](https://wa.me/9647508439986)
 - **Email**: [Aramkrd8@gmail.com](mailto:Aramkrd8@gmail.com)
 
 ---
 
-&copy; 2026 **Best of Taste Resto & Delivery**. All Rights Reserved. Powered by **Araam.dev**.
+&copy; 2026 **Best of Taste Resto & Delivery**. All Rights Reserved. Powered by **[Araam.dev](https://araam-dev.vercel.app)**.
+
