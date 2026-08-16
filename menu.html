@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Menu — Best of Taste Gourmet Dining</title>
+    <meta name="description"
+        content="Explore our full menu of artisanal soups, hand-pulled noodles, charcoal flame grills, cold dishes, and artisanal drinks.">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#0a0a0c',
+                        'bg-surface': '#121216',
+                        'bg-card': '#18181e',
+                        'primary-red': '#ff3838',
+                        'primary-red-hover': '#ff4757',
+                        'accent-gold': '#ffb142',
+                        'text-muted': '#9aa0a6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-bg-dark text-white relative antialiased selection:bg-primary-red selection:text-white">
+
+    <!-- Ambient Luxury Glow & Mesh Background System -->
+    <div class="ambient-bg-glow" aria-hidden="true">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+        <div class="glow-orb glow-orb-3"></div>
+    </div>
+    <div class="bg-mesh-pattern" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <!-- ================================================
+         HEADER / NAVBAR
+         ================================================ -->
+    <header id="navbar"
+        class="fixed top-0 left-0 right-0 z-50 py-4 px-4 sm:px-6 lg:px-12 transition-all bg-bg-dark/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2.5 no-underline group">
+                <div
+                    class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary-red flex items-center justify-center shadow-lg shadow-primary-red/30 group-hover:scale-105 transition-transform">
+                    <i data-lucide="utensils-crossed" class="w-4 h-4 sm:w-5 sm:h-5 text-white"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span
+                        class="font-bold text-base sm:text-lg tracking-tight text-white group-hover:text-primary-red transition-colors">
+                        Best of <span class="text-primary-red">Taste</span>
+                    </span>
+                    <span class="text-[9px] sm:text-[10px] text-text-muted tracking-widest uppercase">Resto &amp;
+                        Delivery</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-2">
+                <a href="index.html" class="nav-link">
+                    <i data-lucide="home" class="w-4 h-4 text-text-muted"></i>
+                    <span>Home</span>
+                </a>
+                <a href="menu.html" class="nav-link active">
+                    <i data-lucide="utensils" class="w-4 h-4 text-primary-red"></i>
+                    <span>Full Menu</span>
+                </a>
+                <a href="index.html#business-lunch" class="nav-link">
+                    <i data-lucide="flame" class="w-4 h-4 text-text-muted"></i>
+                    <span>Business Lunch</span>
+                </a>
+                <a href="index.html#experience" class="nav-link">
+                    <i data-lucide="award" class="w-4 h-4 text-text-muted"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="#contact" class="nav-link">
+                    <i data-lucide="phone-call" class="w-4 h-4 text-text-muted"></i>
+                    <span>Contact</span>
+                </a>
+            </nav>
+
+            <!-- Actions (Search, Language, Cart, Reserve & Mobile Hamburger) -->
+            <div class="flex items-center gap-2.5">
+                <!-- Language Selector Modal Trigger -->
+                <button data-modal="language-modal"
+                    class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-muted hover:text-white hover:bg-white/10 transition-colors"
+                    title="Select Language">
+                    <i data-lucide="globe" class="w-4 h-4"></i>
+                </button>
+
+                <!-- Shopping Cart Button -->
+                <button id="cart-btn"
+                    class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-muted hover:text-white hover:bg-white/10 transition-colors"
+                    title="View Cart">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span id="cart-badge"
+                        class="hidden absolute -top-1 -right-1 bg-primary-red text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-bg-dark shadow-md">
+                        0
+                    </span>
+                </button>
+
+                <!-- Reserve Table Modal Trigger -->
+                <button data-modal="reservation-modal"
+                    class="hidden lg:inline-flex btn-primary-red text-xs font-bold py-2.5 px-5">
+                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                    <span>Book Table</span>
+                </button>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobile-hamburger-btn"
+                    class="md:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary-red/10 border border-primary-red/30 flex items-center justify-center text-primary-red hover:bg-primary-red hover:text-white transition-colors"
+                    aria-label="Open Navigation Menu">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================================================
+         MOBILE NAVIGATION DRAWER OVERLAY
+         ================================================ -->
+    <div id="mobile-menu-backdrop"
+        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[9990] opacity-0 pointer-events-none transition-opacity duration-300">
+    </div>
+    <aside id="mobile-menu-drawer"
+        class="fixed top-0 right-0 bottom-0 w-full max-w-[280px] sm:max-w-xs bg-bg-surface border-l border-white/10 z-[9995] p-6 flex flex-col justify-between translate-x-full transition-transform duration-300">
+        <div>
+            <div class="flex items-center justify-between pb-6 border-b border-white/10 mb-6">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-primary-red flex items-center justify-center">
+                        <i data-lucide="utensils-crossed" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <span class="font-bold text-white text-base">Best of <span
+                            class="text-primary-red">Taste</span></span>
+                </div>
+                <button id="mobile-menu-close" class="p-2 text-text-muted hover:text-white transition-colors"
+                    aria-label="Close Mobile Menu">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <nav class="flex flex-col gap-2">
+                <a href="index.html"
+                    class="mobile-nav-link text-text-muted hover:text-white font-semibold text-sm py-3 px-4 rounded-xl hover:bg-white/5 flex items-center gap-3 transition-colors">
+                    <i data-lucide="home" class="w-4 h-4 text-text-muted"></i>
+                    <span>Home</span>
+                </a>
+                <a href="menu.html"
+                    class="mobile-nav-link text-white font-semibold text-sm py-3 px-4 rounded-xl hover:bg-white/5 flex items-center gap-3 transition-colors bg-white/5">
+                    <i data-lucide="utensils" class="w-4 h-4 text-primary-red"></i>
+                    <span>Full Menu</span>
+                </a>
+                <a href="index.html#business-lunch"
+                    class="mobile-nav-link text-text-muted hover:text-white font-semibold text-sm py-3 px-4 rounded-xl hover:bg-white/5 flex items-center gap-3 transition-colors">
+                    <i data-lucide="flame" class="w-4 h-4 text-accent-gold"></i>
+                    <span>Business Lunch</span>
+                </a>
+                <a href="index.html#experience"
+                    class="mobile-nav-link text-text-muted hover:text-white font-semibold text-sm py-3 px-4 rounded-xl hover:bg-white/5 flex items-center gap-3 transition-colors">
+                    <i data-lucide="award" class="w-4 h-4 text-text-muted"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="#contact"
+                    class="mobile-nav-link text-text-muted hover:text-white font-semibold text-sm py-3 px-4 rounded-xl hover:bg-white/5 flex items-center gap-3 transition-colors">
+                    <i data-lucide="phone-call" class="w-4 h-4 text-text-muted"></i>
+                    <span>Contact</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="space-y-3 pt-6 border-t border-white/10">
+            <button data-modal="language-modal" class="w-full btn-secondary-dark py-3 text-xs font-semibold">
+                <i data-lucide="globe" class="w-4 h-4"></i> Choose Language
+            </button>
+            <button data-modal="reservation-modal" class="w-full btn-primary-red py-3 text-xs font-bold">
+                <i data-lucide="calendar" class="w-4 h-4"></i> Book Table
+            </button>
+        </div>
+    </aside>
+
+    <!-- ================================================
+         MAIN CONTENT - FULL MENU SCREEN
+         ================================================ -->
+    <main class="pt-24 pb-20">
+
+        <!-- MENU HERO HEADER -->
+        <section class="py-10 sm:py-14 bg-gradient-to-b from-bg-surface to-transparent border-b border-white/5 mb-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center space-y-4">
+                <div
+                    class="inline-flex items-center gap-2 bg-primary-red/10 border border-primary-red/30 rounded-full px-4 py-1.5 text-xs font-bold text-primary-red">
+                    <i data-lucide="utensils" class="w-4 h-4"></i>
+                    <span>Our Full Gourmet Menu</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    Taste the <span class="highlight-underline">Masterpiece</span>
+                </h1>
+                <p class="text-text-muted text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                    Prepared daily using wild ingredients, wood-fired applewood smoke, and authentic spices. Select any
+                    dish to view detailed ingredients or place an instant order.
+                </p>
+            </div>
+        </section>
+
+        <!-- MENU SECTION -->
+        <section id="menu-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+
+            <!-- Controls (Search & Sort) -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+                <div class="relative w-full md:w-80">
+                    <i data-lucide="search"
+                        class="w-4 h-4 text-text-muted absolute left-4 top-1/2 -translate-y-1/2"></i>
+                    <input type="text" id="menu-search" placeholder="Search food, ramen, steak, drinks..."
+                        class="w-full bg-bg-surface border border-white/10 rounded-full pl-11 pr-4 py-2.5 text-sm text-white placeholder-text-muted focus:border-primary-red focus:outline-none transition-colors">
+                </div>
+
+                <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                    <span class="text-xs text-text-muted font-semibold hidden sm:inline">Sort Dishes:</span>
+                    <select id="sort-select"
+                        class="bg-bg-surface border border-white/10 rounded-full px-4 py-2.5 text-sm text-white focus:border-primary-red focus:outline-none cursor-pointer w-full sm:w-auto">
+                        <option value="default">Line up (Default)</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Top Rated</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="flex gap-2 overflow-x-auto pb-4 mb-10 border-b border-white/5 no-scrollbar">
+                <button class="category-pill active" data-category="all">
+                    <i data-lucide="grid" class="w-3.5 h-3.5"></i> All Dishes
+                </button>
+                <button class="category-pill" data-category="hot-dishes">
+                    <i data-lucide="flame" class="w-3.5 h-3.5"></i> Hot Dishes
+                </button>
+                <button class="category-pill" data-category="cold-dishes">
+                    <i data-lucide="snowflake" class="w-3.5 h-3.5"></i> Cold Dishes
+                </button>
+                <button class="category-pill" data-category="soup">
+                    <i data-lucide="soup" class="w-3.5 h-3.5"></i> Soup
+                </button>
+                <button class="category-pill" data-category="grill">
+                    <i data-lucide="drumstick" class="w-3.5 h-3.5"></i> Grill
+                </button>
+                <button class="category-pill" data-category="appetizer">
+                    <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i> Appetizer
+                </button>
+                <button class="category-pill" data-category="dessert">
+                    <i data-lucide="cake" class="w-3.5 h-3.5"></i> Dessert
+                </button>
+                <button class="category-pill" data-category="drinks">
+                    <i data-lucide="wine" class="w-3.5 h-3.5"></i> Drinks
+                </button>
+            </div>
+
+            <!-- Dynamic Menu Grid -->
+            <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Rendered dynamically via app.js -->
+            </div>
+
+            <!-- No Results Found -->
+            <div id="no-results" class="hidden text-center py-16">
+                <i data-lucide="frown" class="w-12 h-12 text-text-muted mx-auto mb-3"></i>
+                <p class="text-text-muted text-base sm:text-lg font-medium">No dishes match your search criteria.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================================================
+         FOOTER
+         ================================================ -->
+    <footer id="contact" class="bg-bg-card border-t border-white/5 py-12 sm:py-16 px-4 sm:px-6 lg:px-12 relative z-10">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 sm:gap-10">
+            <div class="space-y-4 md:col-span-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-primary-red flex items-center justify-center">
+                        <i data-lucide="utensils-crossed" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <span class="font-bold text-xl text-white">Best of <span
+                            class="text-primary-red">Taste</span></span>
+                </div>
+                <p class="text-text-muted text-xs sm:text-sm max-w-sm leading-relaxed">
+                    High-end food delivery and gourmet dining experience. Fresh ingredients, fire-grilled flavor,
+                    40-minute fast delivery guarantee.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-xs sm:text-sm text-text-muted">
+                    <li><a href="index.html"
+                            class="hover:text-primary-red transition-colors flex items-center gap-1.5"><i
+                                data-lucide="chevron-right" class="w-3.5 h-3.5"></i> Home</a></li>
+                    <li><a href="menu.html"
+                            class="hover:text-primary-red transition-colors flex items-center gap-1.5"><i
+                                data-lucide="chevron-right" class="w-3.5 h-3.5"></i> Full Menu</a></li>
+                    <li><a href="index.html#business-lunch"
+                            class="hover:text-primary-red transition-colors flex items-center gap-1.5"><i
+                                data-lucide="chevron-right" class="w-3.5 h-3.5"></i> Business Lunch</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-white mb-4">Contact Info</h4>
+                <ul class="space-y-2 text-xs sm:text-sm text-text-muted">
+                    <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-primary-red"></i>
+                        Duhok, Kurdistan</li>
+                    <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-primary-red"></i> 750
+                        843 9986</li>
+                    <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-primary-red"></i>
+                        Aramkrd8@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto border-t border-white/5 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-text-muted gap-4">
+            <p>&copy; 2026 Best of Taste Resto &amp; Delivery.</p>
+            <p>Powered by <a href="https://araam.dev" target="_blank"
+                    class="text-accent-gold font-bold hover:underline">Araam.dev</a></p>
+        </div>
+    </footer>
+
+    <!-- ================================================
+         LANGUAGE SELECTION MODAL
+         ================================================ -->
+    <div id="language-modal" class="modal-overlay">
+        <div
+            class="modal-box max-w-sm text-center p-7 sm:p-8 bg-bg-surface border border-white/10 rounded-3xl relative shadow-2xl">
+            <button class="modal-close absolute top-4 right-4 text-text-muted hover:text-white transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex flex-col items-center justify-center mb-6">
+                <div
+                    class="w-16 h-16 rounded-full bg-primary-red flex items-center justify-center shadow-lg shadow-primary-red/40 mb-3">
+                    <i data-lucide="utensils-crossed" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="font-extrabold text-2xl text-white">Best of <span class="text-primary-red">Taste</span></h3>
+                <p class="text-xs text-text-muted mt-1">Həlبژێرنا زمانى / Select Language</p>
+            </div>
+
+            <div class="space-y-3 mb-6">
+                <button
+                    class="lang-option-btn w-full py-3 px-4 rounded-2xl bg-white/5 border border-white/10 hover:border-primary-red hover:bg-primary-red/10 text-white font-bold text-base transition-all flex items-center justify-center gap-2"
+                    data-lang="Badini">
+                    <span>كوردی بادینی</span>
+                </button>
+                <button
+                    class="lang-option-btn w-full py-3 px-4 rounded-2xl bg-white/5 border border-white/10 hover:border-primary-red hover:bg-primary-red/10 text-white font-bold text-base transition-all flex items-center justify-center gap-2"
+                    data-lang="Sorani">
+                    <span>كوردی سورانی</span>
+                </button>
+                <button
+                    class="lang-option-btn w-full py-3 px-4 rounded-2xl bg-white/5 border border-white/10 hover:border-primary-red hover:bg-primary-red/10 text-white font-bold text-base transition-all flex items-center justify-center gap-2"
+                    data-lang="Arabic">
+                    <span>العربية</span>
+                </button>
+                <button
+                    class="lang-option-btn w-full py-3 px-4 rounded-2xl bg-white/5 border border-white/10 hover:border-primary-red hover:bg-primary-red/10 text-white font-bold text-base transition-all flex items-center justify-center gap-2"
+                    data-lang="English">
+                    <span>English</span>
+                </button>
+            </div>
+
+            <!-- Social Icons (FB, TikTok, Snap, WhatsApp) -->
+            <div class="flex items-center justify-center gap-3 mb-5">
+                <a href="https://facebook.com" target="_blank"
+                    class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-muted hover:text-primary-red hover:border-primary-red transition-all"
+                    title="Facebook">
+                    <i data-lucide="facebook" class="w-4 h-4"></i>
+                </a>
+                <a href="https://tiktok.com" target="_blank"
+                    class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-muted hover:text-primary-red hover:border-primary-red transition-all"
+                    title="TikTok">
+                    <i data-lucide="video" class="w-4 h-4"></i>
+                </a>
+                <a href="https://snapchat.com" target="_blank"
+                    class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-muted hover:text-primary-red hover:border-primary-red transition-all"
+                    title="Snapchat">
+                    <i data-lucide="ghost" class="w-4 h-4"></i>
+                </a>
+                <a href="https://wa.me/9647508439986" target="_blank"
+                    class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-muted hover:text-primary-red hover:border-primary-red transition-all"
+                    title="WhatsApp">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <p class="text-xs text-text-muted">
+                Powered by <a href="https://araam.dev" target="_blank"
+                    class="text-accent-gold hover:underline font-bold">Araam.dev</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ================================================
+         DISH DETAIL MODAL OVERLAY
+         ================================================ -->
+    <div id="dish-detail-modal" class="modal-overlay">
+        <div class="modal-box max-w-xl overflow-hidden p-0">
+            <div class="relative h-60 sm:h-72 bg-bg-dark overflow-hidden">
+                <img id="modal-dish-img" src="" alt="Dish Detail" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-bg-surface via-transparent to-black/40"></div>
+                <button
+                    class="modal-close absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white flex items-center justify-center hover:bg-primary-red hover:border-primary-red transition-all shadow-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                    <span id="modal-dish-category"
+                        class="bg-primary-red text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                        Category
+                    </span>
+                    <span id="modal-dish-rating"
+                        class="bg-black/70 backdrop-blur-md text-accent-gold text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 border border-white/10">
+                        <i data-lucide="star" class="w-3.5 h-3.5 fill-accent-gold"></i>
+                        <span>4.9</span>
+                    </span>
+                </div>
+            </div>
+            <div class="p-5 sm:p-6 space-y-4 bg-bg-surface">
+                <div class="flex items-start justify-between gap-4">
+                    <h3 id="modal-dish-name" class="font-extrabold text-xl sm:text-2xl text-white leading-tight">
+                        Dish Name
+                    </h3>
+                    <div class="text-right flex-shrink-0">
+                        <span class="text-[10px] text-text-muted uppercase block">Price</span>
+                        <span id="modal-dish-price" class="text-xl sm:text-2xl font-extrabold text-primary-red">$
+                            0.00</span>
+                    </div>
+                </div>
+                <p id="modal-dish-desc" class="text-text-muted text-xs sm:text-sm leading-relaxed">
+                    Dish description text...
+                </p>
+                <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                    <span id="modal-dish-available" class="portion-badge">
+                        20 Bowls available
+                    </span>
+                    <button id="modal-add-to-cart-btn" class="btn-primary-red py-2.5 px-5 text-xs font-bold">
+                        <i data-lucide="plus" class="w-4 h-4"></i> Add to Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================
+         SHOPPING CART SIDE DRAWER
+         ================================================ -->
+    <div id="cart-backdrop"></div>
+    <aside id="cart-drawer" class="p-4 sm:p-6">
+        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-primary-red"></i>
+                <h3 class="font-bold text-base sm:text-lg text-white">Your Shopping Cart</h3>
+            </div>
+            <button id="cart-close-btn" class="p-2 text-text-muted hover:text-white transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <div id="cart-items" class="flex-1 overflow-y-auto space-y-3 pr-1"></div>
+
+        <div class="border-t border-white/10 pt-4 mt-4 space-y-2">
+            <div class="flex items-center justify-between text-xs text-text-muted">
+                <span>Subtotal</span>
+                <span id="cart-subtotal" class="text-white font-semibold">$ 0.00</span>
+            </div>
+            <div class="flex items-center justify-between text-xs text-text-muted">
+                <span>Delivery &amp; Tax (5%)</span>
+                <span id="cart-tax" class="text-white font-semibold">$ 0.00</span>
+            </div>
+            <div class="flex items-center justify-between text-base font-bold text-white pt-2 border-t border-white/5">
+                <span>Total</span>
+                <span id="cart-total" class="text-primary-red">$ 0.00</span>
+            </div>
+            <button id="checkout-btn" class="w-full btn-primary-red py-3.5 text-sm mt-3">
+                <i data-lucide="check" class="w-4 h-4"></i> Proceed to Checkout
+            </button>
+        </div>
+    </aside>
+
+    <!-- TABLE RESERVATION MODAL -->
+    <div id="reservation-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-5 h-5 text-primary-red"></i>
+                    <h3 class="font-bold text-lg sm:text-xl text-white">Book a Table</h3>
+                </div>
+                <button class="modal-close p-2 text-text-muted hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form id="reservation-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-text-muted uppercase mb-1">Full Name</label>
+                    <input type="text" required placeholder="John Doe"
+                        class="w-full bg-bg-dark border border-white/10 rounded-xl p-3 text-sm text-white focus:border-primary-red focus:outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-text-muted uppercase mb-1">Date</label>
+                        <input type="date" required
+                            class="w-full bg-bg-dark border border-white/10 rounded-xl p-3 text-sm text-white focus:border-primary-red focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-text-muted uppercase mb-1">Guests</label>
+                        <select required
+                            class="w-full bg-bg-dark border border-white/10 rounded-xl p-3 text-sm text-white focus:border-primary-red focus:outline-none">
+                            <option value="2">2 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="6">6 Guests</option>
+                            <option value="8">8+ Guests</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="w-full btn-primary-red py-3.5 text-sm mt-2">
+                    Confirm Table Reservation
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <!-- Shared Application Script -->
+    <script src="app.js"></script>
+</body>
+
+</html>
